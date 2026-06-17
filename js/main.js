@@ -20,10 +20,31 @@
     btn.addEventListener("click", (e) => {
       e.preventDefault();
       const msg = btn.getAttribute("data-wa-message");
-      const url = (window.waLink ? window.waLink(msg) : "#");
-      window.open(url, "_blank");
+      if (window.openWhatsApp) window.openWhatsApp(msg);
     });
   });
+
+  // ----- Aviso de "modo demonstração" -----
+  // Mostra a mensagem que seria enviada ao WhatsApp enquanto não há número real.
+  window.showWaDemo = function (message) {
+    document.querySelectorAll(".wa-demo").forEach((el) => el.remove());
+    const overlay = document.createElement("div");
+    overlay.className = "wa-demo";
+    overlay.innerHTML =
+      '<div class="wa-demo__box" role="dialog" aria-label="Modo demonstração">' +
+      '<button class="wa-demo__close" aria-label="Fechar">&times;</button>' +
+      '<span class="wa-demo__tag">🟢 Modo demonstração</span>' +
+      "<h4>Aqui o cliente seria direcionado ao WhatsApp</h4>" +
+      "<p>Com a seguinte mensagem já preenchida:</p>" +
+      '<div class="wa-demo__msg"></div>' +
+      '<small>Para ativar o envio real, basta cadastrar o número em <code>js/config.js</code>.</small>' +
+      "</div>";
+    overlay.querySelector(".wa-demo__msg").textContent = message || "";
+    const close = () => overlay.remove();
+    overlay.addEventListener("click", (e) => { if (e.target === overlay) close(); });
+    overlay.querySelector(".wa-demo__close").addEventListener("click", close);
+    document.body.appendChild(overlay);
+  };
 
   // ----- Header sombra ao rolar -----
   const header = document.getElementById("header");
@@ -72,8 +93,7 @@
         (mensagem ? `*Mensagem:* ${mensagem}` : "");
 
       const decoded = decodeURIComponent(texto.replace(/%0A/g, "\n"));
-      const url = window.waLink ? window.waLink(decoded) : "#";
-      window.open(url, "_blank");
+      if (window.openWhatsApp) window.openWhatsApp(decoded);
     });
   }
 })();

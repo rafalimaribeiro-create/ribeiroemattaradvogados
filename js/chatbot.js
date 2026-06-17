@@ -21,6 +21,21 @@
   }
   window.waLink = waLink; // exposto para o main.js
 
+  // Modo demonstração: enquanto o número for o de exemplo, não abrimos um
+  // WhatsApp inválido — mostramos um aviso com a mensagem que seria enviada.
+  function isDemo() {
+    const n = (cfg.whatsappNumber || "").replace(/\D/g, "");
+    return !n || n === "5500000000000";
+  }
+  // Abre o WhatsApp (ou o aviso de demonstração). Use sempre esta função.
+  window.openWhatsApp = function (message) {
+    if (isDemo() && typeof window.showWaDemo === "function") {
+      window.showWaDemo(message || cfg.defaultMessage);
+      return;
+    }
+    window.open(waLink(message), "_blank");
+  };
+
   // ----- Árvore de conversa -----
   // Cada nó: mensagem(ns) do bot + opções (chips). Uma opção pode:
   //   - levar a outro nó (next)
@@ -187,8 +202,8 @@
         quick.innerHTML = "";
         if (opt.wa) {
           setTimeout(() => {
-            addMessage("Perfeito! Abrindo o WhatsApp para continuarmos o atendimento... 🟢", "bot");
-            window.open(waLink(opt.wa), "_blank");
+            addMessage("Perfeito! Vou te direcionar para o WhatsApp para continuarmos o atendimento... 🟢", "bot");
+            window.openWhatsApp(opt.wa);
           }, 500);
         } else if (opt.next) {
           setTimeout(() => goTo(opt.next), 350);
