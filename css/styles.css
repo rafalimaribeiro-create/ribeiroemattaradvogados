@@ -224,6 +224,19 @@ h3 { font-size: 1.25rem; }
 .social a { font-size: .88rem; color: rgba(255,255,255,.8); border-bottom: 1px solid transparent; padding-bottom: 2px; }
 .social a:hover { color: #fff; border-color: var(--gold); }
 
+.qr-share {
+  display: flex; align-items: center; gap: 16px; margin-top: 26px;
+  background: #fff; border-radius: var(--radius); padding: 14px 16px; max-width: 380px;
+}
+.qr-share__code { width: 132px; height: 132px; flex: none; display: grid; place-items: center; }
+.qr-share__code img, .qr-share__code canvas { display: block; }
+.qr-share__text { display: flex; flex-direction: column; gap: 3px; }
+.qr-share__text strong { color: var(--navy); font-family: var(--serif); font-size: 1.1rem; }
+.qr-share__text span { color: var(--muted); font-size: .82rem; line-height: 1.4; }
+.qr-share__link { color: var(--wa-dark); font-weight: 600; font-size: .85rem; margin-top: 2px; }
+.qr-share__link:hover { text-decoration: underline; }
+.qr-share__fallback { color: var(--muted); font-size: .78rem; text-align: center; }
+
 .form { background: #fff; border-radius: var(--radius); padding: 32px; box-shadow: var(--shadow); }
 .field { margin-bottom: 18px; }
 .field label { display: block; font-size: .85rem; font-weight: 600; color: var(--ink); margin-bottom: 6px; }

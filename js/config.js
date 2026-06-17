@@ -15,4 +15,8 @@ window.SITE_CONFIG = {
 
   // Mensagem padrão quando o usuário clica num botão sem texto definido
   defaultMessage: "Olá! Vim pelo site e gostaria de mais informações sobre inventário.",
+
+  // Endereço público do site (usado para gerar o QR Code).
+  // Deixe vazio ("") para usar automaticamente o endereço atual da página.
+  siteUrl: "https://rafalimaribeiro-create.github.io/ribeiroemattaradvogados/",
 };
