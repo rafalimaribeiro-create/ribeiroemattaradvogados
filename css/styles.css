@@ -187,16 +187,17 @@ h3 { font-size: 1.25rem; }
 /* ===== FAIXA DE TOPO ===== */
 .topbar {
   display: flex; align-items: center; justify-content: center; gap: 12px;
-  background: linear-gradient(90deg, var(--gold), var(--gold-soft));
-  color: var(--navy-deep); padding: 9px 42px 9px 16px;
+  background: linear-gradient(90deg, var(--navy), var(--navy-700));
+  color: #fff; padding: 9px 42px 9px 16px;
   text-align: center; font-size: .9rem; position: relative;
 }
-.topbar__link { color: var(--navy-deep); font-weight: 600; }
+.topbar__link { color: #fff; font-weight: 600; }
+.topbar__link strong { color: var(--gold-soft); }
 .topbar__link u { text-underline-offset: 3px; }
 .topbar__close {
   position: absolute; right: 10px; top: 50%; transform: translateY(-50%);
   background: none; border: 0; font-size: 1.4rem; line-height: 1;
-  color: var(--navy-deep); cursor: pointer; opacity: .65;
+  color: #fff; cursor: pointer; opacity: .7;
 }
 .topbar__close:hover { opacity: 1; }
 .topbar.is-hidden { display: none; }
