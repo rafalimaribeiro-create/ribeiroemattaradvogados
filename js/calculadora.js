@@ -25,13 +25,20 @@
   }
   // Máscara monetária: formata "R$ 1.000.000,00" enquanto o usuário digita
   function maskMoney(el) {
-    let digits = (el.value || "").replace(/\D/g, "");
-    if (!digits) { el.value = ""; return; }
-    digits = digits.replace(/^0+/, "") || "0";
-    while (digits.length < 3) digits = "0" + digits; // garante centavos
-    const cents = digits.slice(-2);
-    const inteiro = digits.slice(0, -2).replace(/\B(?=(\d{3})+(?!\d))/g, ".");
-    el.value = "R$ " + inteiro + "," + cents;
+    let v = (el.value || "").replace(/[^\d,]/g, "");
+    const hasComma = v.indexOf(",") !== -1;
+    let intPart = v;
+    let decPart = "";
+    if (hasComma) {
+      const parts = v.split(",");
+      intPart = parts.shift();
+      decPart = parts.join("").slice(0, 2); // no máximo 2 casas decimais
+    }
+    intPart = intPart.replace(/^0+(?=\d)/, ""); // remove zeros à esquerda
+    if (intPart === "" && hasComma) intPart = "0";
+    const intFmt = intPart.replace(/\B(?=(\d{3})+(?!\d))/g, "."); // milhar
+    if (!intFmt && !hasComma) { el.value = ""; return; }
+    el.value = "R$ " + intFmt + (hasComma ? "," + decPart : "");
   }
   document.querySelectorAll(".js-money").forEach((el) => {
     el.addEventListener("input", function () { maskMoney(el); });
