@@ -79,6 +79,16 @@
   form.addEventListener("input", updateVisibility);
   updateVisibility();
 
+  // Ao trocar o estado, pré-preenche a alíquota típica do ITCMD
+  const ufSel = document.getElementById("calcUF");
+  const aliqInput = document.getElementById("calcAliquota");
+  if (ufSel && aliqInput) {
+    ufSel.addEventListener("change", function () {
+      const opt = ufSel.options[ufSel.selectedIndex];
+      if (opt && opt.dataset.aliquota) aliqInput.value = opt.dataset.aliquota;
+    });
+  }
+
   // ----- Núcleo do cálculo -----
   function calcular(inp) {
     const out = { meacao: 0, heranca: 0, herdeiros: [], notas: [] };
@@ -177,6 +187,13 @@
   function render(out, inp) {
     let html = '<h3 class="calc__result-title">Estimativa da divisão</h3>';
 
+    if (inp.dividas > 0) {
+      html +=
+        '<div class="calc__line"><span>Patrimônio informado</span><strong>' + brl(inp.grossTotal) + "</strong></div>";
+      html +=
+        '<div class="calc__line"><span>(−) Dívidas abatidas</span><strong>− ' + brl(inp.dividas) + "</strong></div>";
+    }
+
     if (out.meacao > 0) {
       html +=
         '<div class="calc__line calc__line--meacao"><span>Meação do cônjuge <em>(não é herança)</em></span><strong>' +
@@ -187,6 +204,16 @@
       '<div class="calc__line calc__line--heranca"><span>Herança a partilhar</span><strong>' +
       brl(out.heranca) +
       "</strong></div>";
+
+    if (inp.itcmd > 0) {
+      const aliqTxt = String(inp.aliquota).replace(".", ",") + "%";
+      html +=
+        '<div class="calc__line"><span>ITCMD estimado <em>(' + inp.uf + " • " + aliqTxt +
+        ")</em></span><strong>− " + brl(inp.itcmd) + "</strong></div>";
+      html +=
+        '<div class="calc__line calc__line--total"><span>Herança líquida estimada (após ITCMD)</span><strong>' +
+        brl(out.heranca - inp.itcmd) + "</strong></div>";
+    }
 
     if (out.herdeiros.length) {
       html +=
@@ -238,19 +265,26 @@
   // ----- Submit -----
   form.addEventListener("submit", function (e) {
     e.preventDefault();
-    const total = parseMoney(document.getElementById("calcTotal").value);
-    if (total <= 0) {
+    const grossTotal = parseMoney(document.getElementById("calcTotal").value);
+    if (grossTotal <= 0) {
       result.innerHTML =
         '<p class="calc__placeholder">Informe um valor de patrimônio maior que zero para calcular.</p>';
       return;
     }
+    const dividas = parseMoney(document.getElementById("calcDividas").value);
+    const total = Math.max(0, grossTotal - dividas); // patrimônio líquido (abatidas as dívidas)
+
     const hasConjuge = radioVal("conjuge") === "sim";
     const regime = document.getElementById("calcRegime").value;
     const numFilhos = parseInt(document.getElementById("calcFilhos").value, 10) || 0;
     let bensComuns = parseMoney(document.getElementById("calcComuns").value);
     if (!bensComuns) bensComuns = total; // se vazio, assume tudo comum
+    const aliquota = parseFloat(document.getElementById("calcAliquota").value) || 0;
+    const uf = document.getElementById("calcUF").value;
 
     const inp = {
+      grossTotal: grossTotal,
+      dividas: dividas,
       total: total,
       hasConjuge: hasConjuge,
       regime: regime,
@@ -259,8 +293,14 @@
       numFilhos: numFilhos,
       filhosComuns: radioVal("filhosComuns") !== "nao",
       ascendentes: parseInt(document.getElementById("calcAscendentes").value, 10) || 0,
+      uf: uf,
+      aliquota: aliquota,
     };
 
-    render(calcular(inp), inp);
+    const out = calcular(inp);
+    inp.itcmd = out.heranca * aliquota / 100;
+    if (inp.itcmd > 0)
+      out.notas.push("ITCMD é estimativa: a alíquota varia por estado e muitas vezes é progressiva — confirme a do seu caso.");
+    render(out, inp);
   });
 })();

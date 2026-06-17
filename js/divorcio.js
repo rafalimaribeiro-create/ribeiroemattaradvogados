@@ -52,13 +52,20 @@
   // ----- Cálculo -----
   function calcular() {
     const r = regime();
-    const comuns = r === "separacao" ? 0 : parseMoney(document.getElementById("divComuns").value);
+    let comuns = 0;
+    let dividas = 0;
+    if (r !== "separacao") {
+      const bruto = parseMoney(document.getElementById("divComuns").value);
+      dividas = parseMoney(document.getElementById("divDividas").value);
+      comuns = Math.max(0, bruto - dividas); // abate dívidas comuns
+    }
     let p1 = parseMoney(document.getElementById("divPart1").value);
     let p2 = parseMoney(document.getElementById("divPart2").value);
     if (r === "universal") { p1 = 0; p2 = 0; }
 
     let c1, c2;
     const notas = [];
+    if (dividas > 0) notas.push("Dívidas comuns de " + brl(dividas) + " foram abatidas dos bens comuns antes da divisão.");
     if (r === "universal") {
       c1 = comuns / 2; c2 = comuns / 2;
       notas.push("Comunhão universal: praticamente todo o patrimônio é comum e dividido igualmente (50/50).");
@@ -126,5 +133,69 @@
       return;
     }
     render(o);
+  });
+})();
+
+/* ===================================================================
+   ESTIMATIVA DE PENSÃO ALIMENTÍCIA (por % da renda)
+   =================================================================== */
+(function () {
+  "use strict";
+
+  const form = document.getElementById("pensaoForm");
+  const result = document.getElementById("pensaoResult");
+  if (!form || !result) return;
+
+  function parseMoney(str) {
+    if (!str) return 0;
+    const clean = String(str).replace(/[^\d,]/g, "").replace(",", ".");
+    const v = parseFloat(clean);
+    return isNaN(v) ? 0 : v;
+  }
+  const brl = (v) =>
+    v.toLocaleString("pt-BR", { style: "currency", currency: "BRL", maximumFractionDigits: 2 });
+
+  form.addEventListener("submit", function (e) {
+    e.preventDefault();
+    const renda = parseMoney(document.getElementById("pensaoRenda").value);
+    const filhos = parseInt(document.getElementById("pensaoFilhos").value, 10) || 1;
+    let pct = parseFloat(document.getElementById("pensaoPct").value) || 0;
+    if (pct < 0) pct = 0;
+    if (pct > 100) pct = 100;
+
+    if (renda <= 0) {
+      result.innerHTML =
+        '<p class="calc__placeholder">Informe a renda mensal para estimar a pensão.</p>';
+      return;
+    }
+
+    const mensal = renda * pct / 100;
+    const porFilho = mensal / filhos;
+
+    let html = '<h3 class="calc__result-title">Estimativa da pensão</h3>';
+    html +=
+      '<div class="calc__line calc__line--heranca"><span>Pensão mensal estimada <em>(' +
+      String(pct).replace(".", ",") + "% da renda)</em></span><strong>" + brl(mensal) + "</strong></div>";
+    if (filhos > 1) {
+      html +=
+        '<div class="calc__line"><span>Por filho (' + filhos + ")</span><strong>" + brl(porFilho) + "</strong></div>";
+    }
+    html +=
+      '<div class="calc__line calc__line--total"><span>Equivalente anual</span><strong>' +
+      brl(mensal * 12) + "</strong></div>";
+    html +=
+      '<ul class="calc__notas"><li>Valor de referência. O juiz fixa caso a caso pelo binômio necessidade × possibilidade.</li>' +
+      "<li>Despesas como escola, plano de saúde e atividades podem ser somadas ou rateadas à parte.</li></ul>";
+    html +=
+      '<p class="calc__cta-line">Precisa definir ou revisar uma pensão? ' +
+      '<a href="#" class="calc__cta-link" data-wa-message="Olá! Usei a estimativa de pensão alimentícia no site e gostaria de orientação.">Falar com um advogado</a></p>';
+
+    result.innerHTML = html;
+    result.querySelectorAll("[data-wa-message]").forEach((btn) => {
+      btn.addEventListener("click", (ev) => {
+        ev.preventDefault();
+        if (window.openWhatsApp) window.openWhatsApp(btn.getAttribute("data-wa-message"));
+      });
+    });
   });
 })();

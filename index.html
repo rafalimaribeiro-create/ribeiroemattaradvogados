@@ -16,7 +16,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="css/styles.css?v=2" />
+  <link rel="stylesheet" href="css/styles.css?v=3" />
 </head>
 <body>
   <!-- ===== HEADER ===== -->
@@ -264,6 +264,50 @@
               </select>
             </div>
 
+            <div class="field">
+              <label for="calcDividas">Dívidas a abater do patrimônio (R$)</label>
+              <input type="text" inputmode="decimal" id="calcDividas" class="js-money" placeholder="Opcional" />
+            </div>
+
+            <div class="field">
+              <label for="calcUF">Estado (para estimar o ITCMD)</label>
+              <select id="calcUF">
+                <option value="AC" data-aliquota="4">AC — 4%</option>
+                <option value="AL" data-aliquota="4">AL — 4%</option>
+                <option value="AP" data-aliquota="4">AP — 4%</option>
+                <option value="AM" data-aliquota="2">AM — 2%</option>
+                <option value="BA" data-aliquota="4">BA — até 8% (prog.)</option>
+                <option value="CE" data-aliquota="4">CE — até 8% (prog.)</option>
+                <option value="DF" data-aliquota="4">DF — 4% a 6%</option>
+                <option value="ES" data-aliquota="4">ES — 4%</option>
+                <option value="GO" data-aliquota="4">GO — 2% a 8%</option>
+                <option value="MA" data-aliquota="4">MA — até 7% (prog.)</option>
+                <option value="MT" data-aliquota="4">MT — 2% a 8%</option>
+                <option value="MS" data-aliquota="6">MS — 6%</option>
+                <option value="MG" data-aliquota="5">MG — 5%</option>
+                <option value="PA" data-aliquota="4">PA — até 6% (prog.)</option>
+                <option value="PB" data-aliquota="4">PB — até 8% (prog.)</option>
+                <option value="PR" data-aliquota="4">PR — 4%</option>
+                <option value="PE" data-aliquota="4">PE — até 8% (prog.)</option>
+                <option value="PI" data-aliquota="4">PI — 4%</option>
+                <option value="RJ" data-aliquota="4.5">RJ — 4% a 8%</option>
+                <option value="RN" data-aliquota="4">RN — 3% a 6%</option>
+                <option value="RS" data-aliquota="4">RS — até 6% (prog.)</option>
+                <option value="RO" data-aliquota="4">RO — 2% a 4%</option>
+                <option value="RR" data-aliquota="4">RR — 4%</option>
+                <option value="SC" data-aliquota="4">SC — 1% a 8%</option>
+                <option value="SP" data-aliquota="4" selected>SP — 4%</option>
+                <option value="SE" data-aliquota="4">SE — até 8% (prog.)</option>
+                <option value="TO" data-aliquota="4">TO — 2% a 8%</option>
+              </select>
+            </div>
+
+            <div class="field">
+              <label for="calcAliquota">Alíquota do ITCMD (%)</label>
+              <input type="number" id="calcAliquota" min="0" max="8" step="0.1" value="4" />
+              <small>Pré-preenchida pela média do estado. Muitos estados são progressivos — ajuste se souber a sua.</small>
+            </div>
+
             <button type="submit" class="btn btn--primary btn--block">Calcular estimativa</button>
           </form>
 
@@ -327,6 +371,12 @@
               <small id="divComunsHelp">Bens adquiridos onerosamente durante o casamento (serão divididos 50/50).</small>
             </div>
 
+            <div class="field div__cond" data-when-regime="parcial,universal,participacao">
+              <label for="divDividas">Dívidas comuns a abater (R$)</label>
+              <input type="text" inputmode="decimal" id="divDividas" class="js-money" placeholder="Opcional" />
+              <small>Subtraídas dos bens comuns antes da divisão 50/50.</small>
+            </div>
+
             <div class="field div__cond" data-when-regime="parcial,separacao,participacao">
               <label for="divPart1">Bens particulares do cônjuge 1 (R$)</label>
               <input type="text" inputmode="decimal" id="divPart1" class="js-money" placeholder="Bens anteriores, herança, doação..." />
@@ -346,6 +396,32 @@
         </div>
 
         <p class="disclaimer">⚠️ Estimativa simplificada. A partilha real depende de avaliação dos bens, dívidas, sub-rogação, bens de difícil divisão e da Súmula 377 (separação obrigatória), entre outros. <strong>Não substitui a orientação de um advogado.</strong></p>
+
+        <h3 class="divorcio__calc-title">Estimativa de pensão alimentícia</h3>
+        <div class="calc">
+          <form class="calc__form" id="pensaoForm" novalidate>
+            <div class="field">
+              <label for="pensaoRenda">Renda líquida mensal de quem vai pagar (R$)</label>
+              <input type="text" inputmode="decimal" id="pensaoRenda" class="js-money" placeholder="R$ 0,00" />
+            </div>
+            <div class="field">
+              <label for="pensaoFilhos">Número de filhos beneficiados</label>
+              <input type="number" id="pensaoFilhos" min="1" step="1" value="1" />
+            </div>
+            <div class="field">
+              <label for="pensaoPct">Percentual da renda (%)</label>
+              <input type="number" id="pensaoPct" min="0" max="100" step="1" value="30" />
+              <small>Não há tabela fixa: depende do binômio necessidade (de quem recebe) × possibilidade (de quem paga). Costuma variar de ~10% a 30%+.</small>
+            </div>
+            <button type="submit" class="btn btn--primary btn--block">Calcular pensão</button>
+          </form>
+
+          <div class="calc__result" id="pensaoResult" aria-live="polite">
+            <p class="calc__placeholder">Informe a renda e o percentual e clique em <strong>Calcular pensão</strong>.</p>
+          </div>
+        </div>
+
+        <p class="disclaimer">⚠️ A pensão alimentícia é fixada caso a caso pelo juiz (necessidade × possibilidade). Esta é apenas uma estimativa por percentual e <strong>não substitui um advogado</strong>.</p>
       </div>
     </section>
 
@@ -520,10 +596,10 @@
 
   <!-- Biblioteca de QR Code (gera o QR no navegador do visitante) -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
-  <script src="js/config.js?v=2"></script>
-  <script src="js/chatbot.js?v=2"></script>
-  <script src="js/main.js?v=2"></script>
-  <script src="js/calculadora.js?v=2"></script>
-  <script src="js/divorcio.js?v=2"></script>
+  <script src="js/config.js?v=3"></script>
+  <script src="js/chatbot.js?v=3"></script>
+  <script src="js/main.js?v=3"></script>
+  <script src="js/calculadora.js?v=3"></script>
+  <script src="js/divorcio.js?v=3"></script>
 </body>
 </html>
