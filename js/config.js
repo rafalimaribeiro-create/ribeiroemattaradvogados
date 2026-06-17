@@ -11,7 +11,7 @@ window.SITE_CONFIG = {
   whatsappDisplay: "(00) 00000-0000",
 
   // Nome do escritório (usado nas mensagens automáticas)
-  firmName: "Ribeiro & Mattar Advogados",
+  firmName: "Ribeiro & Matar Advogados",
 
   // Mensagem padrão quando o usuário clica num botão sem texto definido
   defaultMessage: "Olá! Vim pelo site e gostaria de mais informações sobre inventário.",

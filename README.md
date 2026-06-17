@@ -1,4 +1,4 @@
-# Ribeiro & Mattar Advogados — Site (Protótipo)
+# Ribeiro & Matar Advogados — Site (Protótipo)
 
 Protótipo de site institucional para escritório de advocacia **especializado em inventário**
 (judicial e extrajudicial), com foco em captação de clientes via **WhatsApp**, redes sociais
@@ -55,7 +55,7 @@ Edite **`js/config.js`** com os dados reais:
 window.SITE_CONFIG = {
   whatsappNumber: "5511999999999",   // formato internacional, só números
   whatsappDisplay: "(11) 99999-9999",
-  firmName: "Ribeiro & Mattar Advogados",
+  firmName: "Ribeiro & Matar Advogados",
   defaultMessage: "Olá! Vim pelo site...",
 };
 ```
@@ -66,7 +66,7 @@ Também revise no `index.html`: e-mail, links de redes sociais e textos.
 
 - **GitHub Pages**: Settings → Pages → branch `main` (ou a de produção) → `/root`.
 - **Netlify / Vercel / Cloudflare Pages**: conecte o repositório; deploy automático.
-- Depois aponte o domínio (ex.: `ribeiroemattar.adv.br`) para a hospedagem.
+- Depois aponte o domínio (ex.: `ribeiroematar.adv.br`) para a hospedagem.
 
 ## 🗺 Próximos passos sugeridos
 

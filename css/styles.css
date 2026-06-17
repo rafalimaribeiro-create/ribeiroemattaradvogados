@@ -1,5 +1,5 @@
 /* ===================================================================
-   Ribeiro & Mattar Advogados — Protótipo
+   Ribeiro & Matar Advogados — Protótipo
    Paleta: azul-petróleo (confiança) + dourado (sofisticação)
    =================================================================== */
 :root {
@@ -134,6 +134,15 @@ h3 { font-size: 1.25rem; }
 .hero__card p { color: var(--muted); margin-bottom: 20px; font-size: .96rem; }
 .hero__card .btn { width: 100%; }
 .hero__card-note { display: block; margin-top: 14px; font-size: .8rem; color: var(--muted); text-align: center; }
+.hero__qr { display: flex; align-items: center; gap: 14px; }
+.hero__qr-code { width: 128px; height: 128px; flex: none; display: grid; place-items: center; background: #fff; border-radius: 8px; }
+.hero__qr-code img, .hero__qr-code canvas { display: block; }
+.hero__qr-text { display: flex; flex-direction: column; gap: 3px; }
+.hero__qr-text strong { color: var(--navy); font-family: var(--serif); font-size: 1.1rem; line-height: 1.2; }
+.hero__qr-text span { color: var(--muted); font-size: .82rem; line-height: 1.4; }
+.hero__qr-text a { color: var(--wa-dark); font-weight: 600; font-size: .82rem; }
+.hero__qr-text a:hover { text-decoration: underline; }
+.hero__card-sep { height: 1px; background: var(--line); margin: 18px 0; }
 
 /* ===== TRUST ===== */
 .trust { background: var(--navy); color: #fff; padding: 46px 0; }

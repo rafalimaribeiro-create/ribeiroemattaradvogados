@@ -77,7 +77,7 @@ base do fluxo automatizado no WhatsApp.
 
 1. **Conta Meta Business** verificada (Business Manager).
 2. **Número de telefone dedicado** ao WhatsApp Business API (não pode estar no app comum).
-3. **Conta WhatsApp Business (WABA)** e aprovação do **nome de exibição** ("Ribeiro & Mattar Advogados").
+3. **Conta WhatsApp Business (WABA)** e aprovação do **nome de exibição** ("Ribeiro & Matar Advogados").
 4. Escolher **BSP/plataforma** (Opção B) **ou** configurar **Cloud API** (Opção C).
 5. **Templates de mensagem** aprovados pela Meta para iniciar conversa (ex.: confirmação,
    follow-up). Conversas iniciadas pelo cliente (click-to-chat) têm janela de 24h livre.

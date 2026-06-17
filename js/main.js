@@ -14,26 +14,25 @@
     if (cfg.whatsappDisplay) el.textContent = cfg.whatsappDisplay;
   });
 
-  // ----- QR Code do site (gerado no navegador) -----
+  // ----- QR Code do site (gerado no navegador, em todos os pontos com .js-site-qr) -----
   (function renderQr() {
-    const qrEl = document.getElementById("siteQr");
     const url = cfg.siteUrl || window.location.href;
-    const link = document.getElementById("siteUrlLink");
-    if (link) link.href = url;
-    if (!qrEl) return;
-    if (typeof window.QRCode === "function") {
-      new window.QRCode(qrEl, {
-        text: url,
-        width: 132,
-        height: 132,
-        colorDark: "#0f2740",
-        colorLight: "#ffffff",
-        correctLevel: window.QRCode.CorrectLevel.M,
-      });
-    } else {
-      // Fallback caso a biblioteca (CDN) não carregue
-      qrEl.innerHTML = '<span class="qr-share__fallback">QR indisponível agora — use o link ao lado.</span>';
-    }
+    document.querySelectorAll(".js-site-url").forEach((a) => { a.href = url; });
+    document.querySelectorAll(".js-site-qr").forEach((qrEl) => {
+      if (typeof window.QRCode === "function") {
+        new window.QRCode(qrEl, {
+          text: url,
+          width: 128,
+          height: 128,
+          colorDark: "#0f2740",
+          colorLight: "#ffffff",
+          correctLevel: window.QRCode.CorrectLevel.M,
+        });
+      } else {
+        // Fallback caso a biblioteca (CDN) não carregue
+        qrEl.innerHTML = '<span class="qr-share__fallback">QR indisponível agora — use o link.</span>';
+      }
+    });
   })();
 
   // ----- Botões de WhatsApp (data-wa-message) -----
