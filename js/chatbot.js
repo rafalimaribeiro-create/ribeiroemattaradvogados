@@ -43,7 +43,7 @@
   const FLOW = {
     start: {
       bot: [
-        "Olá! 👋 Sou o assistente virtual da Ribeiro & Matta Advogados.",
+        "Olá! 👋 Sou o assistente virtual da Ribeiro & Mattar Advogados.",
         "Posso te ajudar a entender seu caso de inventário. Sobre o que você precisa falar?",
       ],
       options: [

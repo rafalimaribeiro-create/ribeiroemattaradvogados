@@ -1,4 +1,4 @@
-# Plano de Marketing Digital — Ribeiro & Matta Advogados
+# Plano de Marketing Digital — Ribeiro & Mattar Advogados
 
 **Especialidade:** Inventário (judicial e extrajudicial), sucessões e planejamento patrimonial.
 **Objetivo geral:** Gerar atendimentos qualificados via WhatsApp, com presença consistente em
