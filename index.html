@@ -218,7 +218,7 @@
           <form class="calc__form" id="calcForm" novalidate>
             <div class="field">
               <label for="calcTotal">Valor total do patrimônio (R$)</label>
-              <input type="text" inputmode="decimal" id="calcTotal" placeholder="Ex.: 600.000" />
+              <input type="text" inputmode="decimal" id="calcTotal" class="js-money" placeholder="R$ 1.000.000,00" />
             </div>
 
             <fieldset class="calc__group">
@@ -239,7 +239,7 @@
 
             <div class="field calc__cond" data-when-conjuge="sim" data-when-regime="parcial">
               <label for="calcComuns">Quanto do patrimônio é bem comum (adquirido durante a união)? (R$)</label>
-              <input type="text" inputmode="decimal" id="calcComuns" placeholder="Deixe vazio se for tudo comum" />
+              <input type="text" inputmode="decimal" id="calcComuns" class="js-money" placeholder="Deixe vazio se for tudo comum" />
               <small>Usado para calcular a meação e a concorrência do cônjuge.</small>
             </div>
 

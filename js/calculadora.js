@@ -23,6 +23,20 @@
     const v = parseFloat(clean);
     return isNaN(v) ? 0 : v;
   }
+  // Máscara monetária: formata "R$ 1.000.000,00" enquanto o usuário digita
+  function maskMoney(el) {
+    let digits = (el.value || "").replace(/\D/g, "");
+    if (!digits) { el.value = ""; return; }
+    digits = digits.replace(/^0+/, "") || "0";
+    while (digits.length < 3) digits = "0" + digits; // garante centavos
+    const cents = digits.slice(-2);
+    const inteiro = digits.slice(0, -2).replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+    el.value = "R$ " + inteiro + "," + cents;
+  }
+  document.querySelectorAll(".js-money").forEach((el) => {
+    el.addEventListener("input", function () { maskMoney(el); });
+  });
+
   const brl = (v) =>
     v.toLocaleString("pt-BR", { style: "currency", currency: "BRL", maximumFractionDigits: 2 });
   const pct = (part, whole) =>
