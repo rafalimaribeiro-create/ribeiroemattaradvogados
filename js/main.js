@@ -117,4 +117,41 @@
       if (window.openWhatsApp) window.openWhatsApp(decoded);
     });
   }
+
+  // ----- Impressão / PDF do resultado das calculadoras -----
+  // Imprime apenas o elemento de resultado, com cabeçalho do escritório.
+  window.imprimirResultado = function (targetEl) {
+    if (!targetEl) return;
+    const header = document.createElement("div");
+    header.className = "print-header print-only";
+    const data = new Date().toLocaleDateString("pt-BR");
+    header.innerHTML =
+      "<strong>" + (cfg.firmName || "") + "</strong>" +
+      "<span>Simulação gerada em " + data + " — " + (cfg.siteUrl || location.href) + "</span>" +
+      "<em>Estimativa (um norte). Não substitui orientação jurídica.</em>";
+    targetEl.prepend(header);
+    targetEl.classList.add("print-target");
+    document.body.classList.add("printing");
+
+    function cleanup() {
+      document.body.classList.remove("printing");
+      targetEl.classList.remove("print-target");
+      if (header.parentNode) header.remove();
+      window.removeEventListener("afterprint", cleanup);
+    }
+    window.addEventListener("afterprint", cleanup);
+    window.print();
+    setTimeout(cleanup, 1500);
+  };
+
+  // Acrescenta o botão de imprimir ao resultado e liga o clique.
+  window.attachPrintButton = function (resultEl) {
+    if (!resultEl) return;
+    const btn = document.createElement("button");
+    btn.type = "button";
+    btn.className = "btn btn--ghost btn--print no-print";
+    btn.innerHTML = "🖨️ Imprimir / Salvar em PDF";
+    btn.addEventListener("click", function () { window.imprimirResultado(resultEl); });
+    resultEl.appendChild(btn);
+  };
 })();

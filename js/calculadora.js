@@ -260,6 +260,8 @@
         if (window.openWhatsApp) window.openWhatsApp(btn.getAttribute("data-wa-message"));
       });
     });
+
+    if (window.attachPrintButton) window.attachPrintButton(result);
   }
 
   // ----- Submit -----
