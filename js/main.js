@@ -67,6 +67,21 @@
     document.body.appendChild(overlay);
   };
 
+  // ----- Faixa de topo (acesso rápido à calculadora) -----
+  const topbar = document.getElementById("topbar");
+  const topbarClose = document.getElementById("topbarClose");
+  if (topbar) {
+    try {
+      if (localStorage.getItem("rm_topbar_closed") === "1") topbar.classList.add("is-hidden");
+    } catch (err) { /* localStorage indisponível */ }
+    if (topbarClose) {
+      topbarClose.addEventListener("click", () => {
+        topbar.classList.add("is-hidden");
+        try { localStorage.setItem("rm_topbar_closed", "1"); } catch (err) {}
+      });
+    }
+  }
+
   // ----- Header sombra ao rolar -----
   const header = document.getElementById("header");
   const onScroll = () => header.classList.toggle("is-scrolled", window.scrollY > 10);

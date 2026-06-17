@@ -184,6 +184,32 @@ h3 { font-size: 1.25rem; }
 }
 .calc-promo__perks li { color: rgba(255,255,255,.82); font-size: .88rem; }
 
+/* ===== FAIXA DE TOPO ===== */
+.topbar {
+  display: flex; align-items: center; justify-content: center; gap: 12px;
+  background: linear-gradient(90deg, var(--gold), var(--gold-soft));
+  color: var(--navy-deep); padding: 9px 42px 9px 16px;
+  text-align: center; font-size: .9rem; position: relative;
+}
+.topbar__link { color: var(--navy-deep); font-weight: 600; }
+.topbar__link u { text-underline-offset: 3px; }
+.topbar__close {
+  position: absolute; right: 10px; top: 50%; transform: translateY(-50%);
+  background: none; border: 0; font-size: 1.4rem; line-height: 1;
+  color: var(--navy-deep); cursor: pointer; opacity: .65;
+}
+.topbar__close:hover { opacity: 1; }
+.topbar.is-hidden { display: none; }
+
+/* pulsar no botão dourado do banner para chamar atenção */
+@media (prefers-reduced-motion: no-preference) {
+  @keyframes promoPulse {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(201,162,39,.55); }
+    50% { box-shadow: 0 0 0 12px rgba(201,162,39,0); }
+  }
+  .calc-promo .btn--gold { animation: promoPulse 2.2s infinite; }
+}
+
 /* ===== SECTIONS ===== */
 .section { padding: clamp(56px, 8vw, 96px) 0; }
 .section--alt { background: var(--bg-alt); }
