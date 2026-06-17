@@ -368,6 +368,10 @@ h3 { font-size: 1.25rem; }
 .calc__cta-link { color: var(--wa-dark); font-weight: 600; }
 .calc__cta-link:hover { text-decoration: underline; }
 
+.calc__table td:nth-child(3) { font-weight: 600; color: var(--navy); white-space: nowrap; }
+.calc__table-total td { font-weight: 700 !important; color: var(--navy) !important; border-top: 2px solid var(--line); }
+.divorcio__calc-title { text-align: center; color: var(--navy); margin: 36px 0 20px; font-size: 1.5rem; }
+
 @media (max-width: 760px) {
   .calc { grid-template-columns: 1fr; }
 }

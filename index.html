@@ -34,7 +34,8 @@
         <a href="#sobre">O Escritório</a>
         <a href="#servicos">Atuação</a>
         <a href="#processo">Como Funciona</a>
-        <a href="#calculadora">Calculadora</a>
+        <a href="#calculadora">Inventário</a>
+        <a href="#divorcio">Divórcio</a>
         <a href="#faq">Dúvidas</a>
         <a href="#contato" class="nav__cta">Fale Conosco</a>
       </nav>
@@ -275,6 +276,79 @@
       </div>
     </section>
 
+    <!-- ===== DIVÓRCIO ===== -->
+    <section class="section" id="divorcio">
+      <div class="container">
+        <header class="section__head">
+          <span class="eyebrow">Também atuamos em</span>
+          <h2>Divórcio e partilha de bens</h2>
+          <p>Conduzimos divórcios consensuais e litigiosos com sensibilidade e segurança jurídica. Entenda como funciona e simule a divisão dos bens.</p>
+        </header>
+
+        <div class="cards">
+          <article class="card">
+            <div class="card__icon">🤝</div>
+            <h3>Consensual x litigioso</h3>
+            <p>Havendo acordo sobre partilha, guarda e pensão, o divórcio é consensual — mais rápido e econômico. Sem acordo, é decidido na Justiça.</p>
+          </article>
+          <article class="card">
+            <div class="card__icon">📜</div>
+            <h3>Extrajudicial (cartório)</h3>
+            <p>Possível quando há consenso e não há filhos menores ou incapazes (ou essas questões já resolvidas). Feito por escritura pública, com advogado.</p>
+          </article>
+          <article class="card">
+            <div class="card__icon">⚖️</div>
+            <h3>Judicial</h3>
+            <p>Necessário quando há litígio ou filhos menores/incapazes. O juiz decide os pontos em que não houver acordo.</p>
+          </article>
+          <article class="card">
+            <div class="card__icon">🏠</div>
+            <h3>Partilha pelo regime</h3>
+            <p>A divisão dos bens segue o regime do casamento. É possível se divorciar agora e partilhar os bens depois.</p>
+          </article>
+        </div>
+
+        <h3 class="divorcio__calc-title">Calculadora de Partilha (estimativa)</h3>
+        <div class="calc">
+          <form class="calc__form" id="divForm" novalidate>
+            <div class="field">
+              <label for="divRegime">Regime de bens do casamento</label>
+              <select id="divRegime">
+                <option value="parcial">Comunhão parcial de bens</option>
+                <option value="universal">Comunhão universal de bens</option>
+                <option value="separacao">Separação total (convencional)</option>
+                <option value="participacao">Participação final nos aquestos</option>
+              </select>
+            </div>
+
+            <div class="field div__cond" data-when-regime="parcial,universal,participacao">
+              <label for="divComuns" id="divComunsLabel">Bens comuns a partilhar (R$)</label>
+              <input type="text" inputmode="decimal" id="divComuns" class="js-money" placeholder="R$ 0,00" />
+              <small id="divComunsHelp">Bens adquiridos onerosamente durante o casamento (serão divididos 50/50).</small>
+            </div>
+
+            <div class="field div__cond" data-when-regime="parcial,separacao,participacao">
+              <label for="divPart1">Bens particulares do cônjuge 1 (R$)</label>
+              <input type="text" inputmode="decimal" id="divPart1" class="js-money" placeholder="Bens anteriores, herança, doação..." />
+            </div>
+
+            <div class="field div__cond" data-when-regime="parcial,separacao,participacao">
+              <label for="divPart2">Bens particulares do cônjuge 2 (R$)</label>
+              <input type="text" inputmode="decimal" id="divPart2" class="js-money" placeholder="Bens anteriores, herança, doação..." />
+            </div>
+
+            <button type="submit" class="btn btn--primary btn--block">Calcular partilha</button>
+          </form>
+
+          <div class="calc__result" id="divResult" aria-live="polite">
+            <p class="calc__placeholder">Escolha o regime, informe os valores e clique em <strong>Calcular partilha</strong>.</p>
+          </div>
+        </div>
+
+        <p class="disclaimer">⚠️ Estimativa simplificada. A partilha real depende de avaliação dos bens, dívidas, sub-rogação, bens de difícil divisão e da Súmula 377 (separação obrigatória), entre outros. <strong>Não substitui a orientação de um advogado.</strong></p>
+      </div>
+    </section>
+
     <!-- ===== CTA FAIXA ===== -->
     <section class="cta-band">
       <div class="container cta-band__inner">
@@ -450,5 +524,6 @@
   <script src="js/chatbot.js?v=2"></script>
   <script src="js/main.js?v=2"></script>
   <script src="js/calculadora.js?v=2"></script>
+  <script src="js/divorcio.js?v=2"></script>
 </body>
 </html>
