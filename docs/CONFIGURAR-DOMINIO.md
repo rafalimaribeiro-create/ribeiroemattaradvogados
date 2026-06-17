@@ -1,10 +1,16 @@
 # Como configurar um domínio próprio (GitHub Pages)
 
-Guia para apontar um domínio (ex.: `ribeiroematar.adv.br` ou `ribeiroematar.com.br`)
-para este site, que hoje está em:
+Guia para apontar o domínio para este site, que hoje está em:
 `https://rafalimaribeiro-create.github.io/ribeiroemattaradvogados/`
 
+> **Domínio escolhido: `ribeiroematar.adv.br`** (`.adv.br` → exige número da OAB no registro).
+
 > Tempo estimado: ~15 min de configuração + de minutos a algumas horas para o DNS propagar.
+
+> ⚠️ **Ordem importa!** Só cadastre o domínio no GitHub (passo 2) **depois** que o DNS
+> (passo 1) já estiver criado e propagando. Se cadastrar antes, o link atual `github.io`
+> pode parar de funcionar até o domínio novo resolver. A troca do `siteUrl`/QR (passo 3)
+> também deve ser feita **só quando o domínio novo já abrir**.
 
 ---
 
