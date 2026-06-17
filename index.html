@@ -34,6 +34,7 @@
         <a href="#sobre">O Escritório</a>
         <a href="#servicos">Atuação</a>
         <a href="#processo">Como Funciona</a>
+        <a href="#calculadora">Calculadora</a>
         <a href="#faq">Dúvidas</a>
         <a href="#contato" class="nav__cta">Fale Conosco</a>
       </nav>
@@ -201,6 +202,76 @@
             <p>Protocolamos, acompanhamos o andamento e finalizamos a transferência dos bens.</p>
           </li>
         </ol>
+      </div>
+    </section>
+
+    <!-- ===== CALCULADORA DE QUINHÃO ===== -->
+    <section class="section section--alt" id="calculadora">
+      <div class="container">
+        <header class="section__head">
+          <span class="eyebrow">Ferramenta gratuita</span>
+          <h2>Calculadora de Quinhão</h2>
+          <p>Uma simulação simplificada de como a herança poderia ser dividida na sucessão legítima (sem testamento). É um <strong>norte</strong> para você se organizar — <strong>não é uma certeza jurídica</strong>.</p>
+        </header>
+
+        <div class="calc">
+          <form class="calc__form" id="calcForm" novalidate>
+            <div class="field">
+              <label for="calcTotal">Valor total do patrimônio (R$)</label>
+              <input type="text" inputmode="decimal" id="calcTotal" placeholder="Ex.: 600.000" />
+            </div>
+
+            <fieldset class="calc__group">
+              <legend>Há cônjuge ou companheiro(a)?</legend>
+              <label class="radio"><input type="radio" name="conjuge" value="sim" /> Sim</label>
+              <label class="radio"><input type="radio" name="conjuge" value="nao" checked /> Não</label>
+            </fieldset>
+
+            <div class="field calc__cond" data-when-conjuge="sim">
+              <label for="calcRegime">Regime de bens</label>
+              <select id="calcRegime">
+                <option value="parcial">Comunhão parcial de bens</option>
+                <option value="universal">Comunhão universal de bens</option>
+                <option value="separacao">Separação total (convencional)</option>
+                <option value="participacao">Participação final nos aquestos</option>
+              </select>
+            </div>
+
+            <div class="field calc__cond" data-when-conjuge="sim" data-when-regime="parcial">
+              <label for="calcComuns">Quanto do patrimônio é bem comum (adquirido durante a união)? (R$)</label>
+              <input type="text" inputmode="decimal" id="calcComuns" placeholder="Deixe vazio se for tudo comum" />
+              <small>Usado para calcular a meação e a concorrência do cônjuge.</small>
+            </div>
+
+            <div class="field">
+              <label for="calcFilhos">Número de filhos / descendentes</label>
+              <input type="number" id="calcFilhos" min="0" step="1" value="0" />
+            </div>
+
+            <fieldset class="calc__group calc__cond" data-when-conjuge="sim" data-when-filhos="1+">
+              <legend>Todos os filhos são também do cônjuge/companheiro(a)?</legend>
+              <label class="radio"><input type="radio" name="filhosComuns" value="sim" checked /> Sim</label>
+              <label class="radio"><input type="radio" name="filhosComuns" value="nao" /> Não</label>
+            </fieldset>
+
+            <div class="field calc__cond" data-when-filhos="0">
+              <label for="calcAscendentes">Se não há filhos: ascendentes vivos (pais/avós)</label>
+              <select id="calcAscendentes">
+                <option value="0">Nenhum</option>
+                <option value="1">Um (ex.: só o pai ou só a mãe)</option>
+                <option value="2">Dois ou mais (ex.: pai e mãe)</option>
+              </select>
+            </div>
+
+            <button type="submit" class="btn btn--primary btn--block">Calcular estimativa</button>
+          </form>
+
+          <div class="calc__result" id="calcResult" aria-live="polite">
+            <p class="calc__placeholder">Preencha os dados ao lado e clique em <strong>Calcular estimativa</strong> para ver uma simulação da divisão da herança.</p>
+          </div>
+        </div>
+
+        <p class="disclaimer">⚠️ Estimativa simplificada da sucessão legítima. <strong>Não</strong> considera testamento, dívidas, ITCMD, doações em vida, renúncia, direito de representação, separação obrigatória nem particularidades da união estável. <strong>Não substitui a orientação de um advogado.</strong></p>
       </div>
     </section>
 
@@ -378,5 +449,6 @@
   <script src="js/config.js"></script>
   <script src="js/chatbot.js"></script>
   <script src="js/main.js"></script>
+  <script src="js/calculadora.js"></script>
 </body>
 </html>

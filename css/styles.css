@@ -331,6 +331,48 @@ h3 { font-size: 1.25rem; }
 .chatbot__footer { padding: 9px; text-align: center; font-size: .72rem; color: var(--muted); background: var(--bg-alt); }
 
 /* ===================================================================
+   CALCULADORA DE QUINHÃO
+   =================================================================== */
+.calc { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; align-items: start; }
+.calc__form { background: #fff; border: 1px solid var(--line); border-radius: var(--radius); padding: 28px; box-shadow: var(--shadow); }
+.calc__form .field { margin-bottom: 16px; }
+.calc__form .field small { display: block; margin-top: 5px; font-size: .76rem; color: var(--muted); }
+.calc__form .btn { margin-top: 6px; }
+
+.calc__group { border: 1px solid var(--line); border-radius: var(--radius-sm); padding: 12px 14px; margin-bottom: 16px; }
+.calc__group legend { font-size: .85rem; font-weight: 600; color: var(--ink); padding: 0 6px; }
+.radio { display: inline-flex; align-items: center; gap: 6px; margin-right: 18px; font-size: .92rem; cursor: pointer; }
+.radio input { accent-color: var(--navy); }
+
+.calc__result { background: #fff; border: 1px solid var(--line); border-radius: var(--radius); padding: 28px; min-height: 220px; }
+.calc__placeholder { color: var(--muted); font-size: .95rem; }
+.calc__result-title { color: var(--navy); margin-bottom: 16px; }
+.calc__line { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; padding: 10px 0; border-bottom: 1px dashed var(--line); }
+.calc__line span { color: var(--muted); font-size: .9rem; }
+.calc__line em { font-style: normal; font-size: .8rem; }
+.calc__line strong { font-family: var(--serif); font-size: 1.15rem; color: var(--navy); white-space: nowrap; }
+.calc__line--heranca strong { color: var(--gold); }
+.calc__line--total { border-bottom: 0; margin-top: 4px; }
+.calc__line--total strong { color: var(--wa-dark); }
+
+.calc__table { width: 100%; border-collapse: collapse; margin: 16px 0; }
+.calc__table th, .calc__table td { text-align: left; padding: 9px 8px; font-size: .9rem; border-bottom: 1px solid var(--line); }
+.calc__table th { font-size: .76rem; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); }
+.calc__table td:nth-child(2) { font-weight: 600; color: var(--navy); white-space: nowrap; }
+.calc__table em { font-style: normal; color: var(--muted); font-size: .82rem; }
+
+.calc__notas { list-style: none; margin: 14px 0 0; display: grid; gap: 7px; }
+.calc__notas li { position: relative; padding-left: 20px; font-size: .82rem; color: var(--muted); line-height: 1.45; }
+.calc__notas li::before { content: "•"; position: absolute; left: 4px; color: var(--gold); }
+.calc__cta-line { margin-top: 16px; font-size: .9rem; }
+.calc__cta-link { color: var(--wa-dark); font-weight: 600; }
+.calc__cta-link:hover { text-decoration: underline; }
+
+@media (max-width: 760px) {
+  .calc { grid-template-columns: 1fr; }
+}
+
+/* ===================================================================
    AVISO DE MODO DEMONSTRAÇÃO
    =================================================================== */
 .wa-demo {
