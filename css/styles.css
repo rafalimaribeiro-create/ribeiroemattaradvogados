@@ -352,6 +352,7 @@ h3 { font-size: 1.25rem; }
   display: flex; flex-direction: column; max-height: min(560px, calc(100vh - 120px));
   animation: pop .22s ease;
 }
+.chatbot__window[hidden] { display: none; }
 @keyframes pop { from { opacity: 0; transform: translateY(12px) scale(.98); } to { opacity: 1; transform: none; } }
 
 .chatbot__header {
